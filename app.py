@@ -174,6 +174,36 @@ def get_reports_1():
 
     return jsonify(df.to_dict(orient='records')), 200
 
+# Endpoint to get the list of department IDs, names, and the number of employees hired
+# for each department that hired more employees than the mean in 2021
+@app.route('/reports-2', methods=['GET'])
+def get_reports_2():
+    conn = mysql.connector.connect(**DATABASE)
+
+    # Query to get the list of department IDs, names, and the number of employees hired
+    # for each department that hired more employees than the mean in 2021
+    query = '''
+        with employees_by_department as (
+            select count(*) as hired
+            from globant.hired_employees
+            where year(datetime) = 2021
+            group by department_id
+        )
+        select d.id, d.department, count(*) as hired
+        from globant.hired_employees he
+        join globant.departments d on he.department_id = d.id
+        where year(he.datetime) = 2021
+        group by d.id, d.department
+        having hired > (select avg(hired) from employees_by_department)
+        order by hired desc;
+    '''
+
+    # Use pandas to execute the query and format the result
+    df = pd.read_sql(query, conn)
+    conn.close()
+
+    return jsonify(df.to_dict(orient='records')), 200
+
 if __name__ == '__main__':
     create_tables()
     app.run(port=5000)
