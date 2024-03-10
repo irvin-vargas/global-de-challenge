@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 import mysql.connector
 import csv
-from io import StringIO
 import os
+import pandas as pd
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -123,6 +123,56 @@ def process_csv(file_path, table_name):
 
         conn.commit()
         conn.close()
+
+# Endpoint to get the number of employees hired for each job and department in 2021 divided by quarter
+@app.route('/reports-1', methods=['GET'])
+def get_reports_1():
+    conn = mysql.connector.connect(**DATABASE)
+
+    # Query to get the number of employees hired for each job and department in 2021 divided by quarter
+    query = '''
+        with quarter_1 as (
+            select department_id, job_id, count(*) as n_employees
+            from globant.hired_employees
+            where year(datetime) = 2021 and quarter(datetime) = 1
+            group by department_id, job_id
+        ), quarter_2 as (
+            select department_id, job_id, count(*) as n_employees
+            from globant.hired_employees
+            where year(datetime) = 2021 and quarter(datetime) = 2
+            group by department_id, job_id
+        ),  quarter_3 as (
+            select department_id, job_id, count(*) as n_employees
+            from globant.hired_employees
+            where year(datetime) = 2021 and quarter(datetime) = 3
+            group by department_id, job_id
+        ), quarter_4 as (
+            select department_id, job_id, count(*) as n_employees
+            from globant.hired_employees
+            where year(datetime) = 2021 and quarter(datetime) = 4
+            group by department_id, job_id
+        )
+        select d.department, j.job,
+            case when q1.n_employees is null then 0 else q1.n_employees end as q1,
+            case when q2.n_employees is null then 0 else q2.n_employees end as q2,
+            case when q3.n_employees is null then 0 else q3.n_employees end as q3,
+            case when q4.n_employees is null then 0 else q4.n_employees end as q4
+        from globant.hired_employees he
+        join globant.departments d on d.id = he.department_id
+        join globant.jobs j on j.id = he.job_id
+        left join quarter_1 q1 on (q1.department_id = he.department_id) and (q1.job_id = he.job_id)
+        left join quarter_2 q2 on (q2.department_id = he.department_id) and (q2.job_id = he.job_id)
+        left join quarter_3 q3 on (q3.department_id = he.department_id) and (q3.job_id = he.job_id)
+        left join quarter_4 q4 on (q4.department_id = he.department_id) and (q4.job_id = he.job_id)
+        where year(he.datetime) = 2021
+        order by d.department, j.job;
+    '''
+
+    # Use pandas to execute the query and format the result
+    df = pd.read_sql(query, conn)
+    conn.close()
+
+    return jsonify(df.to_dict(orient='records')), 200
 
 if __name__ == '__main__':
     create_tables()
