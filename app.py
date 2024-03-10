@@ -62,25 +62,28 @@ def index():
 # Endpoint to receive and process historical data from CSV files
 @app.route('/', methods=['POST'])
 def upload_csv():
-    # Assuming CSV files are sent as form data with keys: departments, jobs, employees
-    departments_csv = request.files['departments']
-    jobs_csv = request.files['jobs']
-    hired_employees_csv = request.files['hired_employees']
+    try:
+        # Assuming CSV files are sent as form data with keys: departments, jobs, employees
+        departments_csv = request.files['departments']
+        jobs_csv = request.files['jobs']
+        hired_employees_csv = request.files['hired_employees']
 
-    if departments_csv.filename != '':
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], departments_csv.filename)
-        departments_csv.save(file_path)
-        process_csv(file_path, 'departments')
-    if jobs_csv.filename != '':
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], jobs_csv.filename)
-        jobs_csv.save(file_path)
-        process_csv(file_path, 'jobs')
-    if hired_employees_csv.filename != '':
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], hired_employees_csv.filename)
-        hired_employees_csv.save(file_path)
-        process_csv(file_path, 'hired_employees')
-    
-    return redirect(url_for('index'))
+        if departments_csv.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], departments_csv.filename)
+            departments_csv.save(file_path)
+            process_csv(file_path, 'departments')
+        if jobs_csv.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], jobs_csv.filename)
+            jobs_csv.save(file_path)
+            process_csv(file_path, 'jobs')
+        if hired_employees_csv.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], hired_employees_csv.filename)
+            hired_employees_csv.save(file_path)
+            process_csv(file_path, 'hired_employees')
+        return jsonify({'message': 'CSV files uploaded successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    #return redirect(url_for('index'))
 
 def process_csv(file_path, table_name):
     # Read CSV file and insert data into the corresponding table
