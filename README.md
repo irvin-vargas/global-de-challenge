@@ -1,4 +1,4 @@
-# global-de-challenge
+# globant-de-challenge
 Coding Challenge, use of APIs and endpoints for queries
 
 # Flask Application
