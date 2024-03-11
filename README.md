@@ -30,10 +30,12 @@ The URL of the REST API is [127.0.0.1:5000](http://127.0.0.1:5000/)
 
 ### First endpoint: `@app.route('/', methods=['POST'])`
 In the URL bar put [127.0.0.1:5000](http://127.0.0.1:5000/) and you will get the page where you can upload the 3 CSV files ('hired_employees.csv', 'departments.csv' and 'jobs.csv').
-
-![image](resources/index.jpg)
+<p align="center" width="100%">
+  ![image](resources/index.jpg)
+</p>
 
 When the CSV files are uploaded sucessfully, the endpoint returns:
+
 ![image](resources/upload_csv_succesfully.jpg)
 
 ### Second endpoint: `@app.route('/reports-1', methods=['GET'])`
