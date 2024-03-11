@@ -7,7 +7,7 @@ This is a Flask application that provides APIs for uploading CSV files and inser
 
 ## Features
 
-- **Upload CSV files and insert into MYSQL database**: The `/` endpoint accepts 3 CSV files ('hired_employees.csv', 'departments.csv' and 'jobs.csv'), reads the data, and inserts it into their respective MySQL table.
+- **Upload CSV files and insert into MYSQL database**: The `/` endpoint render an HTML where you can upload 3 CSV files ('hired_employees.csv', 'departments.csv' and 'jobs.csv'), then tha data uploaded is inserted into its respective MySQL table.
 - **Reports Endpoints**: The application includes some endpoints (`/reports-1`, and `/reports-2`) that execute SQL queries on the MySQL database to retrieve some metrics related to the 'hired_employees', 'departments', and 'jobs' tables.
 
 ## Installation
