@@ -50,8 +50,4 @@ In the URL bar put [127.0.0.1:5000/reports-2](http://127.0.0.1:5000/reports-2) a
 ## Testing
 
 Automated tests for the endpoints are included in the `tests/test_app.py` file. You can run the tests using pytest: `python tests/test_app.py`
-
-The tests include:
-
-- Uploading CSV files for 'departments', 'jobs', and 'hired_employees' and batch inserting data into 'departments', 'jobs', and 'hired_employees'.
-- Retrieving the 2 reports requested in JSON format.
+The tests verify the correct functioning of the 3 endpoints described above.
