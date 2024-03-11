@@ -6,10 +6,11 @@ import mysql.connector
 API_URL = "http://127.0.0.1:5000"
 RESOURCE_FOLDER = "tests/test_csv"
 DATABASE = {
-    'host': 'localhost',
     'user': 'root',
     'password': 'root',
-    'database': 'globant',
+    'host': '192.168.100.7', # Enter your machine IP if you installed MYSQL locally
+    'port':'3306',
+    'database': 'globant'
 }
 
 def test_home():
@@ -62,7 +63,7 @@ def test_upload_csv():
         conn.close()
 
 def delete_file(file_name):
-    file_path = os.path.join('uploads/', file_name)
+    file_path = os.path.join('uploads', file_name)
     try:
         # Check if the file exists before attempting to delete
         if os.path.exists(file_path):

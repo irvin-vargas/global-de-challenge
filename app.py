@@ -1,21 +1,21 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template
 import mysql.connector
 import csv
 import os
 import pandas as pd
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # MySQL database setup
 DATABASE = {
-    'host': 'localhost',
     'user': 'root',
     'password': 'root',
-    'database': 'globant',
+    'host': '192.168.100.7', # Enter your machine IP if you installed MYSQL locally
+    'port':'3306',
+    'database': 'globant'
 }
 
 def create_tables():
@@ -209,4 +209,4 @@ def get_reports_2():
 
 if __name__ == '__main__':
     create_tables()
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
