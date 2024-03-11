@@ -26,7 +26,7 @@ To run the Docker container, run: `docker run -p 5000:5000 globant_de_challenge`
 
 ## Testing
 
-Automated tests for the `upload` and `reports` endpoints are included in the `tests/test_app.py` file. You can run the tests using pytest: `python tests/test_app.py`
+Automated tests for the endpoints are included in the `tests/test_app.py` file. You can run the tests using pytest: `python tests/test_app.py`
 
 The tests include:
 
