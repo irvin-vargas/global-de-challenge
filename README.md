@@ -14,11 +14,19 @@ This is a Flask application that provides APIs for uploading CSV files and inser
 
 1. Clone this repository.
 2. Install the required Python packages: `pip install -r requirements.txt`
-3. Run the Flask application: `python app/app.py`
+3. Run the Flask application: `python app.py`
+
+## Docker
+
+This application can be dockerized. A Dockerfile is included in the repository.
+
+To build the Docker image, run: `docker build -t globant_de_challenge .`
+
+To run the Docker container, run: `docker run -p 5000:5000 globant_de_challenge`
 
 ## Testing
 
-Automated tests for the `upload` and `reports` endpoints are included in the `tests/test_app.py` file. You can run the tests using pytest: `python app/tests/test_app.py`
+Automated tests for the `upload` and `reports` endpoints are included in the `tests/test_app.py` file. You can run the tests using pytest: `python tests/test_app.py`
 
 The tests include:
 
