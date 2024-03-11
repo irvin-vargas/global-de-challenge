@@ -23,5 +23,4 @@ Automated tests for the `upload` and `reports` endpoints are included in the `te
 The tests include:
 
 - Uploading CSV files for 'departments', 'jobs', and 'hired_employees' and batch inserting data into 'departments', 'jobs', and 'hired_employees'.
-- Retrieving metrics in JSON format.
-- Retrieving metrics in CSV format.
+- Retrieving the 2 reports requested in JSON format.
