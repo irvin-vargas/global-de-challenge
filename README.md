@@ -30,6 +30,7 @@ The URL of the REST API is [127.0.0.1:5000](http://127.0.0.1:5000/)
 
 ### First endpoint: `@app.route('/', methods=['POST'])`
 In the URL bar put [127.0.0.1:5000](http://127.0.0.1:5000/) and you will get the page where you can upload the 3 CSV files ('hired_employees.csv', 'departments.csv' and 'jobs.csv').
+
 ![image](resources/index.jpg)
 
 When the CSV files are uploaded sucessfully, the endpoint returns:
@@ -37,10 +38,12 @@ When the CSV files are uploaded sucessfully, the endpoint returns:
 
 ### Second endpoint: `@app.route('/reports-1', methods=['GET'])`
 In the URL bar put [127.0.0.1:5000/reports-1](http://127.0.0.1:5000/reports-1) and you will get the number of employees hired for each job and department in 2021 divided by quarter.
+
 ![image](resources/reports-1.jpg)
 
 ### Third endpoint: `@app.route('/reports-2', methods=['GET'])`
 In the URL bar put [127.0.0.1:5000/reports-2](http://127.0.0.1:5000/reports-2) and you will get the list of department IDs, names, and the number of employees hired for each department that hired more employees than the mean in 2021.
+
 ![image](resources/reports-2.jpg)
 
 ## Testing
